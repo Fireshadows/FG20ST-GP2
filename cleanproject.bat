@@ -1,0 +1,1 @@
+FOR /d /r %%d IN ("Build","Intermediate","Saved") DO @IF EXIST "%%d" rd /s /q "%%d"
