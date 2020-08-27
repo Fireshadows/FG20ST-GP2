@@ -32,6 +32,11 @@ void UInventory::RemoveItem()
 	//Inventory.Remove();
 }
 
+bool UInventory::IsNotFull()
+{
+	return Inventory.Num() < InventorySize;
+}
+
 // Called when the game starts or when spawned
 void UInventory::BeginPlay()
 {	
