@@ -31,6 +31,9 @@ public:
 	void RemoveItem();
 
 	UFUNCTION(BlueprintCallable)
+	int ItemCount();
+
+	UFUNCTION(BlueprintCallable)
 	bool IsNotFull();
 
 protected:
