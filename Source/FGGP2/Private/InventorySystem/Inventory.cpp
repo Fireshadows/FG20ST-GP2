@@ -4,24 +4,42 @@
 #include "../Public/InventorySystem/Inventory.h"
 
 // Sets default values
-AInventory::AInventory()
+UInventory::UInventory()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	//PrimaryActorTick.bCanEverTick = false;
 
+	//DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
+	//RootComponent = DummyRoot;
+}
+
+bool UInventory::AddItem(AActor* InventoryItem)
+{
+	for (int32 i = 0; i < Inventory.Num(); i++)
+	{
+		if (Inventory[i] == nullptr)
+		{
+			Inventory[i] = InventoryItem;
+			return true;
+		}
+	}
+	return false;
+	//Inventory.Add(InventoryItem);
+}
+
+void UInventory::RemoveItem()
+{
+	//Inventory.Remove();
 }
 
 // Called when the game starts or when spawned
-void AInventory::BeginPlay()
-{
-	Super::BeginPlay();
-	
+void UInventory::BeginPlay()
+{	
+	Inventory.Init(nullptr, InventorySize);
 }
 
-// Called every frame
-void AInventory::Tick(float DeltaTime)
+void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickfunction)
 {
-	Super::Tick(DeltaTime);
 
 }
 

@@ -6,14 +6,29 @@
 #include "GameFramework/Actor.h"
 #include "Inventory.generated.h"
 
-UCLASS()
-class FGGP2_API AInventory : public AActor
+UCLASS(ClassGroup = (Custom), meta=(BlueprintSpawnableComponent))
+class FGGP2_API UInventory : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
+	/** Dummy root component */
+	//UPROPERTY(Category = Grid, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//class USceneComponent* DummyRoot;
+		
 public:	
 	// Sets default values for this actor's properties
-	AInventory();
+	UInventory();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int InventorySize = 1;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<AActor*> Inventory;
+
+	UFUNCTION(BlueprintCallable)
+	bool AddItem(AActor* InventoryItem);
+	UFUNCTION(BlueprintCallable)
+	void RemoveItem();
 
 protected:
 	// Called when the game starts or when spawned
@@ -21,6 +36,9 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickfunction) override;
+
+	/** Returns DummyRoot subobject **/
+	//FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 
 };
