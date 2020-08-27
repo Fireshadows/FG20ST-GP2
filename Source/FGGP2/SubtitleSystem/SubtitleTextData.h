@@ -3,19 +3,35 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Sound/SoundBase.h"
 #include "SubtitleTextData.generated.h"
 
+
+UENUM(BlueprintType)
+enum ENextLineTrigger
+{
+	OnClick,
+	OnFixedDuration,
+	OnFixedDurationOrClick,
+	OnTriggerEnter,
+};
 
 USTRUCT(BlueprintType)
 struct FTextData
 {
 	GENERATED_BODY()
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
 	FText line;
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
 	float duration;
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
-	bool interactable;
+	TEnumAsByte<ENextLineTrigger> triggerType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
+	USoundBase* soundFileReference;
 };
 
 /**
