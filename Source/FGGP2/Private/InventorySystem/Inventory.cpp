@@ -32,9 +32,22 @@ void UInventory::RemoveItem()
 	//Inventory.Remove();
 }
 
+int UInventory::ItemCount()
+{
+	int count = 0;
+	for (int32 i = 0; i < Inventory.Num(); i++)
+	{
+		if (Inventory[i] != nullptr)
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
 bool UInventory::IsNotFull()
 {
-	return Inventory.Num() < InventorySize;
+	return ItemCount() < Inventory.Num();
 }
 
 // Called when the game starts or when spawned
