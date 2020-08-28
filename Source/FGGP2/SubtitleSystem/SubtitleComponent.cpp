@@ -4,7 +4,7 @@ USubtitleComponent::USubtitleComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
 	
-	index = -1;
+	index = 0;
 
 }
 
