@@ -53,11 +53,12 @@ bool UInventory::IsNotFull()
 // Called when the game starts or when spawned
 void UInventory::BeginPlay()
 {	
+	Super::BeginPlay();
 	Inventory.Init(nullptr, InventorySize);
 }
 
 void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickfunction)
 {
-
+	Super::TickComponent(DeltaTime, TickType, ThisTickfunction);
 }
 

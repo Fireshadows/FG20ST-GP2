@@ -5,6 +5,15 @@
 #include "CoreMinimal.h"
 #include "SubtitleTextData.generated.h"
 
+UENUM(BlueprintType)
+enum ENextLineTrigger
+{
+	OnClick,
+	OnFixedDuration,
+	OnFixedDurationOrClick,
+	OnTriggerEnter
+};
+
 
 USTRUCT(BlueprintType)
 struct FTextData
@@ -15,7 +24,9 @@ struct FTextData
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
 	float duration;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
-	bool interactable;
+	TEnumAsByte<ENextLineTrigger> triggerType;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
+	USoundBase* soundRef;
 };
 
 /**
