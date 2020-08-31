@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool AddItem(AActor* InventoryItem);
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem();
+	void RemoveItem(int Index);
 
 	UFUNCTION(BlueprintCallable)
 	int ItemCount();

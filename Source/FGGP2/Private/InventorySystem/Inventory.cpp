@@ -27,9 +27,9 @@ bool UInventory::AddItem(AActor* InventoryItem)
 	//Inventory.Add(InventoryItem);
 }
 
-void UInventory::RemoveItem()
+void UInventory::RemoveItem(int Index)
 {
-	//Inventory.Remove();
+	Inventory[Index] = nullptr;
 }
 
 int UInventory::ItemCount()
