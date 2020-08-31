@@ -22,4 +22,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
 	void Draggable(FVector MouseLocation);
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
+	void Interact(FVector MouseLocation);
+
 };

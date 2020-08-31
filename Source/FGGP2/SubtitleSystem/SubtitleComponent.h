@@ -45,6 +45,7 @@ public:
 	void Clicked();
 	virtual void Clicked_Implementation() override;
 
+
 	UFUNCTION(BlueprintCallable, Category = "Subtitles")
 	void Next();
 	UFUNCTION(BlueprintCallable, Category = "Subtitles")
@@ -65,12 +66,6 @@ public:
 	void StopTimer();
 
 private:
-	
-
 	FTimerHandle ShowNextSubtitleTimerHandle;
 
-
-
-
-		
 };

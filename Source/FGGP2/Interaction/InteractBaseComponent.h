@@ -28,6 +28,13 @@ public:
 	void Draggable(FVector MouseLocation);
 	virtual void Draggable_Implementation(FVector MouseLocation) override;
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
+	void Interact(FVector MouseLocation);
+	virtual void Interact_Implementation(FVector MouseLocation) override;
+
+
+
+
 public:
 
 };

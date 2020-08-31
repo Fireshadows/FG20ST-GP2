@@ -15,6 +15,11 @@ void UInteractBaseComponent::Draggable_Implementation(FVector MouseLocation)
 
 }
 
+void UInteractBaseComponent::Interact_Implementation(FVector MouseLocation)
+{
+
+}
+
 
 void UInteractBaseComponent::Clickable_Implementation()
 {
