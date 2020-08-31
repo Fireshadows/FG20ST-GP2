@@ -10,12 +10,12 @@ UInteractBaseComponent::UInteractBaseComponent()
 
 }
 
-void UInteractBaseComponent::Draggable_Implementation(FVector MouseLocation)
+void UInteractBaseComponent::Draggable_Implementation()
 {
 
 }
 
-void UInteractBaseComponent::Interact_Implementation(FVector MouseLocation)
+void UInteractBaseComponent::Interact_Implementation()
 {
 
 }
