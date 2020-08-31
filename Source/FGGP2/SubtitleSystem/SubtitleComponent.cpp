@@ -55,6 +55,10 @@ void USubtitleComponent::Clicked_Implementation()
 
 void USubtitleComponent::Next()
 {
+	currentText.duration = DataAsset->texts[index].duration;
+	currentText.soundRef = DataAsset->texts[index].soundRef;
+	currentText.line = DataAsset->texts[index].line;
+	currentText.triggerType = DataAsset->texts[index].triggerType;
 	index++;
 	if (index < DataAsset->texts.Num())
 	{
@@ -67,22 +71,27 @@ void USubtitleComponent::Next()
 }	
 void USubtitleComponent::Start()
 {
+	currentText.duration = DataAsset->texts[index].duration;
+	currentText.soundRef = DataAsset->texts[index].soundRef;
+	currentText.line = DataAsset->texts[index].line;
+	currentText.triggerType = DataAsset->texts[index].triggerType;
+	index++;
 	SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleStarted);
 }
 
 void USubtitleComponent::Ended()
 {
 	index = 0;
+	currentText.duration = DataAsset->texts[index].duration;
+	currentText.soundRef = DataAsset->texts[index].soundRef;
+	currentText.line = DataAsset->texts[index].line;
+	currentText.triggerType = DataAsset->texts[index].triggerType;
 	SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleFinished);
 }
 
 FTextData USubtitleComponent::GetCurrentTextData()
 {
-	if (index >= 0)
-	{
-		return DataAsset->texts[index];
-	}
-	return FTextData();
+	return currentText;
 }
 
 void USubtitleComponent::StartTimer(float duration)

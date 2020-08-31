@@ -38,6 +38,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Subtitles")
 	USubtitleDataAsset* DataAsset;
 
+	FTextData currentText;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Subtitles")
 	int index;
 
