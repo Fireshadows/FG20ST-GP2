@@ -25,12 +25,12 @@ public:
 	virtual void Clickable_Implementation() override;
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
-	void Draggable(FVector MouseLocation);
-	virtual void Draggable_Implementation(FVector MouseLocation) override;
+	void Draggable();
+	virtual void Draggable_Implementation() override;
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
-	void Interact(FVector MouseLocation);
-	virtual void Interact_Implementation(FVector MouseLocation) override;
+	void Interact();
+	virtual void Interact_Implementation() override;
 
 
 
