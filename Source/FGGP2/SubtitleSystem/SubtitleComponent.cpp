@@ -72,12 +72,18 @@ void USubtitleComponent::Next()
 }	
 void USubtitleComponent::Start()
 {
-	currentText.duration = DataAsset->texts[index].duration;
-	currentText.soundRef = DataAsset->texts[index].soundRef;
-	currentText.line = DataAsset->texts[index].line;
-	currentText.triggerType = DataAsset->texts[index].triggerType;
-	index++;
-	SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleStarted);
+	if (DataAsset)
+	{
+		if (index < DataAsset->texts.Num())
+		{
+			currentText.duration = DataAsset->texts[index].duration;
+			currentText.soundRef = DataAsset->texts[index].soundRef;
+			currentText.line = DataAsset->texts[index].line;
+			currentText.triggerType = DataAsset->texts[index].triggerType;
+			index++;
+			SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleStarted);
+		}
+	}
 }
 
 void USubtitleComponent::Ended()
