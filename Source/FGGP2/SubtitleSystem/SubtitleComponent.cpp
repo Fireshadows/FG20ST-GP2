@@ -5,6 +5,11 @@ USubtitleComponent::USubtitleComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	
 	index = 0;
+	currentText.duration = DataAsset->texts[index].duration;
+	currentText.soundRef = DataAsset->texts[index].soundRef;
+	currentText.line = DataAsset->texts[index].line;
+	currentText.triggerType = DataAsset->texts[index].triggerType;
+
 
 }
 
