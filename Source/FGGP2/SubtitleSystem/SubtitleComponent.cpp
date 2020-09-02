@@ -59,7 +59,6 @@ void USubtitleComponent::Next()
 	currentText.soundRef = DataAsset->texts[index].soundRef;
 	currentText.line = DataAsset->texts[index].line;
 	currentText.triggerType = DataAsset->texts[index].triggerType;
-	index++;
 	if (index < DataAsset->texts.Num())
 	{
 		SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleNext);
@@ -68,6 +67,7 @@ void USubtitleComponent::Next()
 	{
 		Ended();
 	}
+	index++;
 }	
 void USubtitleComponent::Start()
 {
