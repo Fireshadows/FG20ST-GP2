@@ -55,12 +55,12 @@ void USubtitleComponent::Clicked_Implementation()
 
 void USubtitleComponent::Next()
 {
-	currentText.duration = DataAsset->texts[index].duration;
-	currentText.soundRef = DataAsset->texts[index].soundRef;
-	currentText.line = DataAsset->texts[index].line;
-	currentText.triggerType = DataAsset->texts[index].triggerType;
 	if (index < DataAsset->texts.Num())
 	{
+		currentText.duration = DataAsset->texts[index].duration;
+		currentText.soundRef = DataAsset->texts[index].soundRef;
+		currentText.line = DataAsset->texts[index].line;
+		currentText.triggerType = DataAsset->texts[index].triggerType;
 		SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleNext);
 		index++;
 	}
