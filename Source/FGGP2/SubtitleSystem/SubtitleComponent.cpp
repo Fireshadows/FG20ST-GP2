@@ -62,12 +62,13 @@ void USubtitleComponent::Next()
 	if (index < DataAsset->texts.Num())
 	{
 		SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleNext);
+		index++;
 	}
 	else
 	{
 		Ended();
 	}
-	index++;
+
 }	
 void USubtitleComponent::Start()
 {
