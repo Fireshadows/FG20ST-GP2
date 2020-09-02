@@ -22,7 +22,8 @@ void USubtitleComponent::Clicked_Implementation()
 	}
 	if (DataAsset->texts.Num() > 0)
 	{
-		switch (DataAsset->texts[index].triggerType)
+		auto currentTextData = GetCurrentTextData();
+		switch (currentTextData.triggerType)
 		{
 		case ENextLineTrigger::OnClick:
 		{
