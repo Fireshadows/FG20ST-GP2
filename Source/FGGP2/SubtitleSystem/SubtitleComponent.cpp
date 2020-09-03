@@ -6,12 +6,19 @@ USubtitleComponent::USubtitleComponent()
 	
 	index = 0;
 
+
 }
 
 void USubtitleComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	if (DataAsset)
+	{
+		currentText.duration = DataAsset->texts[index].duration;
+		currentText.soundRef = DataAsset->texts[index].soundRef;
+		currentText.line = DataAsset->texts[index].line;
+		currentText.triggerType = DataAsset->texts[index].triggerType;
+	}
 }
 
 void USubtitleComponent::Clicked_Implementation()
@@ -22,7 +29,8 @@ void USubtitleComponent::Clicked_Implementation()
 	}
 	if (DataAsset->texts.Num() > 0)
 	{
-		switch (DataAsset->texts[index].triggerType)
+		auto currentTextData = GetCurrentTextData();
+		switch (currentTextData.triggerType)
 		{
 		case ENextLineTrigger::OnClick:
 		{
@@ -55,28 +63,35 @@ void USubtitleComponent::Clicked_Implementation()
 
 void USubtitleComponent::Next()
 {
-	currentText.duration = DataAsset->texts[index].duration;
-	currentText.soundRef = DataAsset->texts[index].soundRef;
-	currentText.line = DataAsset->texts[index].line;
-	currentText.triggerType = DataAsset->texts[index].triggerType;
-	index++;
 	if (index < DataAsset->texts.Num())
 	{
+		currentText.duration = DataAsset->texts[index].duration;
+		currentText.soundRef = DataAsset->texts[index].soundRef;
+		currentText.line = DataAsset->texts[index].line;
+		currentText.triggerType = DataAsset->texts[index].triggerType;
 		SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleNext);
+		index++;
 	}
 	else
 	{
 		Ended();
 	}
+
 }	
 void USubtitleComponent::Start()
 {
-	currentText.duration = DataAsset->texts[index].duration;
-	currentText.soundRef = DataAsset->texts[index].soundRef;
-	currentText.line = DataAsset->texts[index].line;
-	currentText.triggerType = DataAsset->texts[index].triggerType;
-	index++;
-	SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleStarted);
+	if (DataAsset)
+	{
+		if (index < DataAsset->texts.Num())
+		{
+			currentText.duration = DataAsset->texts[index].duration;
+			currentText.soundRef = DataAsset->texts[index].soundRef;
+			currentText.line = DataAsset->texts[index].line;
+			currentText.triggerType = DataAsset->texts[index].triggerType;
+			index++;
+			SubtitleEvent.Broadcast(ESubtitleEvent::SubtitleStarted);
+		}
+	}
 }
 
 void USubtitleComponent::Ended()
