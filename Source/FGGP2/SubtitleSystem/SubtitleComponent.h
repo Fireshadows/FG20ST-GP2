@@ -70,4 +70,6 @@ public:
 private:
 	FTimerHandle ShowNextSubtitleTimerHandle;
 
+	bool bInitialTrigger;
+
 };

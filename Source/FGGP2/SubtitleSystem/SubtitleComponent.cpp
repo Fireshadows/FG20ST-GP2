@@ -5,7 +5,7 @@ USubtitleComponent::USubtitleComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	
 	index = 0;
-
+	bInitialTrigger = false;
 
 }
 
@@ -18,6 +18,26 @@ void USubtitleComponent::BeginPlay()
 		currentText.soundRef = DataAsset->texts[index].soundRef;
 		currentText.line = DataAsset->texts[index].line;
 		currentText.triggerType = DataAsset->texts[index].triggerType;
+
+		switch (DataAsset->initialTriggerType)
+		{
+			case ENextLineTrigger::OnClick:
+			{
+
+			}break;
+			case ENextLineTrigger::OnFixedDuration:
+			{
+				StartTimer(DataAsset->initialDuration);
+			}break;
+			case ENextLineTrigger::OnFixedDurationOrClick:
+			{
+				StartTimer(DataAsset->initialDuration);
+			}break;
+			case ENextLineTrigger::OnTriggerEnter:
+			{
+
+			}break;
+		}
 	}
 }
 
@@ -27,37 +47,62 @@ void USubtitleComponent::Clicked_Implementation()
 	{
 		return;
 	}
-	if (DataAsset->texts.Num() > 0)
+
+	if (!bInitialTrigger)
 	{
-		auto currentTextData = GetCurrentTextData();
-		switch (currentTextData.triggerType)
+		switch (DataAsset->initialTriggerType)
 		{
 		case ENextLineTrigger::OnClick:
 		{
-
+			Start();
 		}break;
 		case ENextLineTrigger::OnFixedDuration:
 		{
-			return;
 		}break;
 		case ENextLineTrigger::OnFixedDurationOrClick:
 		{
 			StopTimer();
+			Start();
 		}break;
 		case ENextLineTrigger::OnTriggerEnter:
 		{
-			return;
 		}break;
 		}
 	}
-
-	if (index == 0)
-	{
-		Start();
-	}
 	else
 	{
-		Next();
+		if (DataAsset->texts.Num() > 0)
+		{
+			auto currentTextData = GetCurrentTextData();
+			switch (currentTextData.triggerType)
+			{
+			case ENextLineTrigger::OnClick:
+			{
+
+			}break;
+			case ENextLineTrigger::OnFixedDuration:
+			{
+				return;
+			}break;
+			case ENextLineTrigger::OnFixedDurationOrClick:
+			{
+				StopTimer();
+			}break;
+			case ENextLineTrigger::OnTriggerEnter:
+			{
+				return;
+			}break;
+			}
+		}
+
+		if (index == 0)
+		{
+			Start();
+		}
+		else
+		{
+			Next();
+		}
 	}
 }
 

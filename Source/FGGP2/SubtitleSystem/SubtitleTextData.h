@@ -38,6 +38,13 @@ class FGGP2_API USubtitleDataAsset : public UDataAsset
 {
 public:
 	GENERATED_BODY()
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
+	TEnumAsByte<ENextLineTrigger> initialTriggerType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
+	float initialDuration;
+		
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Text")
 	TArray<FTextData> texts;
 };
