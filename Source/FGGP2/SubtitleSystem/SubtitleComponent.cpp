@@ -110,6 +110,7 @@ void USubtitleComponent::Clicked_Implementation()
 
 void USubtitleComponent::Next()
 {
+
 	if (index < DataAsset->texts.Num())
 	{
 		currentText.duration = DataAsset->texts[index].duration;
@@ -127,6 +128,7 @@ void USubtitleComponent::Next()
 }	
 void USubtitleComponent::Start()
 {
+	bInitialTrigger = true;
 	UE_LOG(LogTemp, Warning, TEXT("Hello start?"));
 	if (DataAsset)
 	{
