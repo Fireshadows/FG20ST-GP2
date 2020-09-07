@@ -23,7 +23,7 @@ void USubtitleComponent::BeginPlay()
 		{
 			case ENextLineTrigger::OnClick:
 			{
-
+				bInitialTrigger = true;
 			}break;
 			case ENextLineTrigger::OnFixedDuration:
 			{
@@ -35,7 +35,7 @@ void USubtitleComponent::BeginPlay()
 			}break;
 			case ENextLineTrigger::OnTriggerEnter:
 			{
-
+				bInitialTrigger = true;
 			}break;
 		}
 	}
