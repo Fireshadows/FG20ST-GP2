@@ -27,11 +27,13 @@ void USubtitleComponent::BeginPlay()
 			}break;
 			case ENextLineTrigger::OnFixedDuration:
 			{
-				StartTimer(DataAsset->initialDuration);
+				GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Start, DataAsset->initialDuration, false);
+				UE_LOG(LogTemp, Warning, TEXT("Hello?"));
 			}break;
 			case ENextLineTrigger::OnFixedDurationOrClick:
 			{
-				StartTimer(DataAsset->initialDuration);
+				GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Start, DataAsset->initialDuration, false);
+				UE_LOG(LogTemp, Warning, TEXT("Hello?"));
 			}break;
 			case ENextLineTrigger::OnTriggerEnter:
 			{
@@ -125,6 +127,7 @@ void USubtitleComponent::Next()
 }	
 void USubtitleComponent::Start()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Hello start?"));
 	if (DataAsset)
 	{
 		if (index < DataAsset->texts.Num())
@@ -156,7 +159,7 @@ FTextData USubtitleComponent::GetCurrentTextData()
 
 void USubtitleComponent::StartTimer(float duration)
 {
-	GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Next, 0, false, duration);
+	GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Next, duration, false);
 }
 
 void USubtitleComponent::StopTimer()
