@@ -27,13 +27,11 @@ void USubtitleComponent::BeginPlay()
 			}break;
 			case ENextLineTrigger::OnFixedDuration:
 			{
-				GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Start, DataAsset->initialDuration, false);
-				UE_LOG(LogTemp, Warning, TEXT("Hello?"));
+				StartTimer(DataAsset->initialDuration);
 			}break;
 			case ENextLineTrigger::OnFixedDurationOrClick:
 			{
-				GetWorld()->GetTimerManager().SetTimer(ShowNextSubtitleTimerHandle, this, &USubtitleComponent::Start, DataAsset->initialDuration, false);
-				UE_LOG(LogTemp, Warning, TEXT("Hello?"));
+				StartTimer(DataAsset->initialDuration);
 			}break;
 			case ENextLineTrigger::OnTriggerEnter:
 			{
