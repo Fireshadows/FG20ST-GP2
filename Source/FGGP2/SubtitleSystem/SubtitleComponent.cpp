@@ -5,7 +5,7 @@ USubtitleComponent::USubtitleComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	
 	index = 0;
-	bInitialTrigger = false;
+	bHasStarted = false;
 
 }
 
@@ -23,7 +23,7 @@ void USubtitleComponent::BeginPlay()
 		{
 			case ENextLineTrigger::OnClick:
 			{
-				bInitialTrigger = true;
+				bHasStarted = true;
 			}break;
 			case ENextLineTrigger::OnFixedDuration:
 			{
@@ -35,7 +35,7 @@ void USubtitleComponent::BeginPlay()
 			}break;
 			case ENextLineTrigger::OnTriggerEnter:
 			{
-				bInitialTrigger = true;
+				bHasStarted = true;
 			}break;
 		}
 	}
@@ -48,7 +48,7 @@ void USubtitleComponent::Clicked_Implementation()
 		return;
 	}
 
-	if (!bInitialTrigger)
+	if (!bHasStarted)
 	{
 		switch (DataAsset->initialTriggerType)
 		{
@@ -126,7 +126,7 @@ void USubtitleComponent::Next()
 }	
 void USubtitleComponent::Start()
 {
-	bInitialTrigger = true;
+	bHasStarted = true;
 	UE_LOG(LogTemp, Warning, TEXT("Hello start?"));
 	if (DataAsset)
 	{

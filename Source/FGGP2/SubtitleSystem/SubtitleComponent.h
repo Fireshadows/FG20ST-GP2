@@ -66,10 +66,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Subtitles")
 	void StopTimer();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Subtitles")
+	bool bHasStarted;
 
 private:
 	FTimerHandle ShowNextSubtitleTimerHandle;
 
-	bool bInitialTrigger;
 
 };
