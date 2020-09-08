@@ -11,6 +11,15 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
+		},
+		
+		{
+    		"Name": "DialogueEditor",
+    		"Type": "Editor",
+    		"LoadingPhase": "PostEngineInit",
+    		"AdditionalDependencies": [
+        		"Engine"
+    		]
 		}
 	]
 }

@@ -15,6 +15,7 @@ enum ENextLineTrigger
 };
 
 
+
 USTRUCT(BlueprintType)
 struct FTextData
 {
