@@ -63,23 +63,25 @@ void UDialogueComponent::Start()
 
 void UDialogueComponent::Next()
 {
-	if (lines[currentIndex].children.Num() == 0)
+	if (bStarted)
 	{
-		Stop();
-		return;
-	}
-
-	if (!bWaitingForKeyword)
-	{
-		if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
+		if (lines[currentIndex].children.Num() == 0
 		{
-			currentIndex = lines[currentIndex].children[0].index;
-			TestIfWaitingForKeyword();
-			DialogueNext.Broadcast();
+			Stop();
+			return;
 		}
-		else
+		if (!bWaitingForKeyword)
 		{
-			//TODO: Warning
+			if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
+			{
+				currentIndex = lines[currentIndex].children[0].index;
+				TestIfWaitingForKeyword();
+				DialogueNext.Broadcast();
+			}
+			else
+			{
+				//TODO: Warning
+			}
 		}
 	}
 }
@@ -87,6 +89,7 @@ void UDialogueComponent::Next()
 void UDialogueComponent::Stop()
 {
 	currentIndex = -1;
+	bStarted = false;
 	DialogueStopped.Broadcast();
 }
 
