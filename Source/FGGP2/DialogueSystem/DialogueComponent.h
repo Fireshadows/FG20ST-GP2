@@ -94,6 +94,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	int AddBranch(int key, FBranchInput dialogueInput, float timer);
 
+	UFUNCTION(BlueprintCallable, Category = "Dialogue")
+	void AddReturnNode(int key, int returnTo);
 
 	/*** Flow control methods ***/
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")

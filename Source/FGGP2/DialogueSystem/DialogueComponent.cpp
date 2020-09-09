@@ -49,13 +49,20 @@ int UDialogueComponent::AddBranch(int key, FBranchInput dialogueInput, float tim
 	return -1;
 }
 
+void UDialogueComponent::AddReturnNode(int key, int returnTo)
+{
+	FNodeData nodeData;
+	nodeData.index = returnTo;
+	nodeData.keyWord = -1;
+	lines[key].children.Add(nodeData);
+}
+
 void UDialogueComponent::Start()
 {
 	if (lines.Num() > 0)
 	{
 		bStarted = true;
 		currentIndex = 0;
-		TestIfWaitingForKeyword();
 		DialogueStarted.Broadcast();
 	}
 
@@ -63,6 +70,7 @@ void UDialogueComponent::Start()
 
 void UDialogueComponent::Next()
 {
+	TestIfWaitingForKeyword();
 	if (bStarted)
 	{
 		if (lines[currentIndex].children.Num() == 0)
@@ -75,7 +83,7 @@ void UDialogueComponent::Next()
 			if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
 			{
 				currentIndex = lines[currentIndex].children[0].index;
-				TestIfWaitingForKeyword();
+	
 				DialogueNext.Broadcast();
 			}
 			else
@@ -97,7 +105,10 @@ bool UDialogueComponent::AtBranch() const
 {
 	if (currentIndex > 0 && currentIndex < lines.Num())
 	{
-		return lines[currentIndex].children.Num() > 1;
+		if (lines[currentIndex].children.Num() > 0)
+		{
+			return lines[currentIndex].children.Num() > 1 && lines[currentIndex].children[0].index != -1;
+		}
 	}
 	return false;
 }
