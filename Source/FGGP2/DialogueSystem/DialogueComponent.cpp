@@ -65,7 +65,7 @@ void UDialogueComponent::Next()
 {
 	if (bStarted)
 	{
-		if (lines[currentIndex].children.Num() == 0
+		if (lines[currentIndex].children.Num() == 0)
 		{
 			Stop();
 			return;
