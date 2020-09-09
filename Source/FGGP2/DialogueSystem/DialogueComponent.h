@@ -114,10 +114,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	FDialogueData GetCurrentText() const;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Dialogue")
+	uint32 bWaitingForKeyword : 1;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Dialogue")
+	uint32 bStarted : 1;
 private:
 
 	void TestIfWaitingForKeyword();
 	int currentIndex;
-	uint32 bStarted : 1;
-	uint32 bWaitingForKeyword : 1;
+
+
 };
