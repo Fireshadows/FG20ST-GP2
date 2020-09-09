@@ -63,10 +63,15 @@ void UDialogueComponent::Start()
 
 void UDialogueComponent::Next()
 {
+	if (lines[currentIndex].children.Num() == 0)
+	{
+		Stop();
+		return;
+	}
 
 	if (!bWaitingForKeyword)
 	{
-		if (lines[currentIndex].children.Num() > 0 && lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
+		if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
 		{
 			currentIndex = lines[currentIndex].children[0].index;
 			TestIfWaitingForKeyword();
@@ -74,7 +79,7 @@ void UDialogueComponent::Next()
 		}
 		else
 		{
-			Stop();
+			//TODO: Warning
 		}
 	}
 }
@@ -130,6 +135,7 @@ void UDialogueComponent::TestIfWaitingForKeyword()
 			if (lines[currentIndex].children[i].keyWord != -1)
 			{
 				bWaitingForKeyword = true;
+				DialogueAtBranch.Broadcast();
 				return;
 			}
 		}

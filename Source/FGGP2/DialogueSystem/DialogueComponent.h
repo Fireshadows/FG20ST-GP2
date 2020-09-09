@@ -76,6 +76,8 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	FDialogueEvent DialogueStopped;
 
+	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
+	FDialogueEvent DialogueAtBranch;
 
 
 
