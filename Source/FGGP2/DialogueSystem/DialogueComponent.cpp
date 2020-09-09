@@ -63,9 +63,10 @@ void UDialogueComponent::Start()
 
 void UDialogueComponent::Next()
 {
+
 	if (!bWaitingForKeyword)
 	{
-		if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
+		if (lines[currentIndex].children.Num() > 0 && lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
 		{
 			currentIndex = lines[currentIndex].children[0].index;
 			TestIfWaitingForKeyword();
