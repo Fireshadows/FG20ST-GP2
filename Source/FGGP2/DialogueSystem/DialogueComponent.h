@@ -15,6 +15,7 @@ public:
 	FNodeData()
 	{
 		keyWord = -1;
+		index = -1;
 	}
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Dialogue")
@@ -34,6 +35,8 @@ public:
 	FDialogueData()
 	{
 		line = FText();
+		timer = 0;
+		bIsBranch = false;
 	}
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Dialogue")
@@ -43,6 +46,8 @@ public:
 	float timer;
 
 	TArray<FNodeData> children;
+
+	uint32 bIsBranch : 1;
 };
 
 
@@ -92,7 +97,14 @@ public:
 	int AddLine(int key, FText dialogueInput, float timer);
 
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
-	int AddBranch(int key, FBranchInput dialogueInput, float timer);
+	int AddBranch(int key);
+
+	UFUNCTION(BlueprintCallable, Category = "Dialogue")
+	int AddLineToBranch(int key, FBranchInput dialogueInput, float timer);
+
+	UFUNCTION(BlueprintCallable, Category = "Dialogue")
+	bool HasChild() const;
+	
 
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	void AddReturnNode(int key, int returnTo);
@@ -117,13 +129,9 @@ public:
 	FDialogueData GetCurrentText() const;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Dialogue")
-	uint32 bWaitingForKeyword : 1;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Dialogue")
 	uint32 bStarted : 1;
 private:
 
-	void TestIfWaitingForKeyword();
 	int currentIndex;
 
 

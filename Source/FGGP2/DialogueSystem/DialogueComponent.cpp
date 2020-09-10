@@ -32,21 +32,44 @@ int UDialogueComponent::AddLine(int key, FText dialogueInput, float timer)
 	return lines.Num()-1;
 }
 
-int UDialogueComponent::AddBranch(int key, FBranchInput dialogueInput, float timer)
+int UDialogueComponent::AddBranch(int key)
 {
-	FDialogueData data;
-	data.line = dialogueInput.line;
-	data.timer = timer;
-	lines.Add(data);
+	FDialogueData branchNode;
+	branchNode.bIsBranch = true;
+	lines.Add(branchNode);
 	if (lines.Num() > key)
 	{
 		FNodeData nodeData;
-		nodeData.index = lines.Num()-1;
-		nodeData.keyWord = dialogueInput.keyWord;
+		nodeData.index = lines.Num() - 1;
+		nodeData.keyWord = -1;
 		lines[key].children.Add(nodeData);
-		return lines.Num()-1;
 	}
-	return -1;
+	return lines.Num() - 1;
+}
+
+int UDialogueComponent::AddLineToBranch(int key, FBranchInput dialogueInput, float timer)
+{
+	FDialogueData branchData;
+	branchData.line = dialogueInput.line;
+	lines.Add(branchData);
+	if (lines.Num() > key)
+	{
+		if (lines[key].bIsBranch)
+		{
+			FNodeData nodeData;
+			nodeData.index = lines.Num() - 1;
+			nodeData.keyWord = dialogueInput.keyWord;
+			lines[key].children.Add(nodeData);
+
+			return lines.Num() - 1;
+		}
+	}
+	return -1; //TODO: warning
+}
+
+bool UDialogueComponent::HasChild() const
+{
+	return lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num();
 }
 
 void UDialogueComponent::AddReturnNode(int key, int returnTo)
@@ -65,12 +88,10 @@ void UDialogueComponent::Start()
 		currentIndex = 0;
 		DialogueStarted.Broadcast();
 	}
-
 }
 
 void UDialogueComponent::Next()
 {
-	TestIfWaitingForKeyword();
 	if (bStarted)
 	{
 		if (lines[currentIndex].children.Num() == 0)
@@ -78,18 +99,10 @@ void UDialogueComponent::Next()
 			Stop();
 			return;
 		}
-		if (!bWaitingForKeyword)
+		if (!AtBranch())
 		{
-			if (lines[currentIndex].children[0].index > 0 && lines[currentIndex].children[0].index < lines.Num())
-			{
-				currentIndex = lines[currentIndex].children[0].index;
-	
-				DialogueNext.Broadcast();
-			}
-			else
-			{
-				//TODO: Warning
-			}
+			currentIndex = lines[currentIndex].children[0].index;
+			DialogueNext.Broadcast();
 		}
 	}
 }
@@ -105,24 +118,20 @@ bool UDialogueComponent::AtBranch() const
 {
 	if (currentIndex > 0 && currentIndex < lines.Num())
 	{
-		if (lines[currentIndex].children.Num() > 0)
-		{
-			return lines[currentIndex].children.Num() > 1 && lines[currentIndex].children[0].index != -1;
-		}
+		return lines[currentIndex].bIsBranch;
 	}
 	return false;
 }
 
 bool UDialogueComponent::EnterKeyword(int keyword)
 {
-	if (bWaitingForKeyword)
+	if (AtBranch())
 	{
 		for (int i = 0; i < lines[currentIndex].children.Num(); i++)
 		{
 			if (lines[currentIndex].children[i].keyWord == keyword)
 			{
 				currentIndex = lines[currentIndex].children[i].index;
-				TestIfWaitingForKeyword();
 				DialogueNext.Broadcast();
 				return true;
 			}
@@ -138,23 +147,6 @@ FDialogueData UDialogueComponent::GetCurrentText() const
 		return lines[currentIndex];
 	}
 	return FDialogueData();
-}
-
-void UDialogueComponent::TestIfWaitingForKeyword()
-{
-	if (lines[currentIndex].children.Num() > 1 || lines[currentIndex].children.Num() == 1)
-	{
-		for (int i = 0; i < lines[currentIndex].children.Num(); i++)
-		{
-			if (lines[currentIndex].children[i].keyWord != -1)
-			{
-				bWaitingForKeyword = true;
-				DialogueAtBranch.Broadcast();
-				return;
-			}
-		}
-	}
-	bWaitingForKeyword = false;
 }
 
 void UDialogueComponent::BeginPlay()
