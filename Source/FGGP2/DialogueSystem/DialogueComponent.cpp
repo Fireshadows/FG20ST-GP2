@@ -125,13 +125,16 @@ bool UDialogueComponent::AtBranch() const
 
 bool UDialogueComponent::EnterKeyword(int keyword)
 {
-	for (int i = 0; i < lines[currentIndex].children.Num(); i++)
+	for (int i = 0; i < lines.Num(); i++)
 	{
-		if (lines[currentIndex].children[i].keyWord == keyword)
+		for (int j = 0; j < lines[i].children.Num(); j++)
 		{
-			currentIndex = lines[currentIndex].children[i].index;
-			DialogueNext.Broadcast();
-			return true;
+			if (lines[i].children[j].keyWord == keyword)
+			{
+				currentIndex = lines[i].children[j].index;
+				DialogueNext.Broadcast();
+				return true;
+			}
 		}
 	}
 	return false;

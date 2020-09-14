@@ -4,8 +4,6 @@
 #include "DialogueComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDialogueEvent);
-
-
 USTRUCT(BlueprintType)
 struct FNodeData
 {
@@ -84,8 +82,6 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	FDialogueEvent DialogueAtBranch;
 
-
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Dialogue")
 	TArray<FDialogueData> lines;
 
@@ -104,7 +100,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	bool HasChild() const;
-	
 
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	void AddReturnNode(int key, int returnTo);
