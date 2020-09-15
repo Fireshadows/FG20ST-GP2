@@ -49,20 +49,17 @@ int UDialogueComponent::AddBranch(int key)
 
 int UDialogueComponent::AddLineToBranch(int key, FBranchInput dialogueInput, float timer)
 {
-	FDialogueData branchData;
-	branchData.line = dialogueInput.line;
-	lines.Add(branchData);
 	if (lines.Num() > key)
 	{
-		if (lines[key].bIsBranch)
-		{
-			FNodeData nodeData;
-			nodeData.index = lines.Num() - 1;
-			nodeData.keyWord = dialogueInput.keyWord;
-			lines[key].children.Add(nodeData);
-
-			return lines.Num() - 1;
-		}
+		FDialogueData branchData;
+		branchData.line = dialogueInput.line;
+		branchData.timer = timer;
+		lines.Add(branchData);
+		FNodeData nodeData;
+		nodeData.index = lines.Num() - 1;
+		nodeData.keyWord = dialogueInput.keyWord;
+		lines[key].children.Add(nodeData);
+		return lines.Num() - 1;
 	}
 	return -1; //TODO: warning
 }
