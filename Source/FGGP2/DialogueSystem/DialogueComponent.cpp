@@ -105,6 +105,7 @@ void UDialogueComponent::Next()
 			}
 			else
 			{
+				DialogueReset.Broadcast();
 				bStarted = false;
 			}
 		}

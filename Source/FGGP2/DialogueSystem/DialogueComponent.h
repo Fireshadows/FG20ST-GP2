@@ -82,6 +82,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	FDialogueEvent DialogueAtBranch;
 
+	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
+	FDialogueEvent DialogueReset;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Dialogue")
 	TArray<FDialogueData> lines;
 
