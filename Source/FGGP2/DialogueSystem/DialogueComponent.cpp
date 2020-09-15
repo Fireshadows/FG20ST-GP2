@@ -99,7 +99,14 @@ void UDialogueComponent::Next()
 		if (!AtBranch())
 		{
 			currentIndex = lines[currentIndex].children[0].index;
-			DialogueNext.Broadcast();
+			if (currentIndex != 0)
+			{
+				DialogueNext.Broadcast();
+			}
+			else
+			{
+				bStarted = false;
+			}
 		}
 	}
 }
@@ -128,6 +135,7 @@ bool UDialogueComponent::EnterKeyword(int keyword)
 		{
 			if (lines[i].children[j].keyWord == keyword)
 			{
+				bStarted = true;
 				currentIndex = lines[i].children[j].index;
 				DialogueNext.Broadcast();
 				return true;
